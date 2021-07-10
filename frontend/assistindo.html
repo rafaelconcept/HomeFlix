@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <body style="text-align:center">
+
+    
+       <h1 class="title">
+         aa
+       </h1>
+      <!-- Mude o src dessa tag para o nome do video que você possuir -->
+
+      <video src="/video/loki/02" controls audioTracks="1" width="640"></video>
+       
+  </body>
+
+  <script>
+    let url = window.location.href
+
+
+    let pathProps = getAllPropsInPath(url)
+
+    document.querySelector(".title").innerHTML = "Assistindo " + pathProps[2] + " - " + pathProps[3];
+
+    function getAllPropsInPath(url) {
+      let allProps = [];
+      let urlParts = url.split('/');
+      for (let i = 1; i < urlParts.length; i++) {
+        let prop = urlParts[i];
+        allProps.push(prop);
+      }
+      return allProps;
+    }
+      
+
+
+  </script>
+</html>
+  </script>
+
+
+</html>
