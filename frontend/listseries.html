@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .serieElement {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            font-size: 20px;
+            margin-left: 10px;
+            height: 400px;
+        }
+
+        .serieElement:hover {
+            width: 250px;
+            border: black 1px solid;
+
+        }
+
+        .coverList {
+            height: 300px;
+            width: 200px;
+        }
+
+        .boardSeries {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+       
+    </style>
+    <link rel="stylesheet" href="../frontend/series.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Series</title>
+</head>
+
+<body style="text-align:center">
+    <h1>
+        Series Disponiveis
+    </h1>
+
+    <div class="boardSeries">
+
+    </div>
+
+</body>
+<footer>
+    <script>
+        //create a variable with the current domain
+
+
+        consultApi('/list/series');
+        function consultApi(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var html = '';
+                        for (var i = 0; i < response.length; i++) {
+                            html += `<div class="serieElement" onClick="clicou('${response[i].serie}')">`;
+                            html += `<img class="coverList" src="getcover/${response[i].serie}" alt="">`;
+                            html += '<p>' + response[i].serie + '</p>';
+                            html += '</div>';
+                        }
+                        console.log(html)
+                        document.querySelector('.boardSeries').innerHTML = html;
+                    }
+                }
+            };
+            xhr.send(null);
+        }
+
+
+        function clicou(serie){
+            //redirect screen to series page
+            window.location.href = `/series/${serie}/episodios`;
+        }
+
+    </script>
+</footer>
+
+</html>

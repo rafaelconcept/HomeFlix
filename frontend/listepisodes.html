@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+     .episodesBoard {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 30px;      
+        }
+    .episode{
+        text-decoration: none;
+    }
+    .episode:hover {
+            margin-bottom: 5px;
+            padding: 10px;
+            border: black 1px solid;
+
+        }
+</style>
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episodes</title>
+</head>
+
+<body style="text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+
+
+    <h1 id="titulo"></h1>
+    <div class="episodesBoard">
+
+    </div>
+</body>
+<footer>
+    <script>
+        
+        var url = window.location.href;
+
+        var serie = url.split("/")[4];
+        document.querySelector('#titulo').innerText = `Episodios `+serie;
+        consultApi(`/list/episodes/${serie}`);
+        function consultApi(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var html = '';
+                        for (var i = 0; i < response.length; i++) {
+                            html += `<a class="episode" href="/${serie}/${response[i]}/assistir">${response[i]}</a>`;
+        
+                        }
+                        console.log(html)
+                        document.querySelector('.episodesBoard').innerHTML = html;
+                    }
+                } 
+            };
+            xhr.send(null);
+        }
+   
+    </script>
+</footer>
+</html>
