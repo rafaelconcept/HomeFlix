@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
-
+  <style>
+    .button {
+      height: 50px;
+      width: 300px;
+      text-align: center;
+    }
+  </style>
   <body style="text-align:center">
 
     
@@ -10,7 +16,11 @@
       <!-- Mude o src dessa tag para o nome do video que você possuir -->
 
       <video  id="video"src="/video/loki/01.mp4" controls audioTracks="1" width="640"></video>
-       
+       <div class="buttons_handle">
+         <button class="button" onclick="handle(-1)">Anterior</button>
+         <button class="button" onclick="handle(1)">Proximo</button>
+
+       </div>
   </body>
 
   <script>
@@ -31,7 +41,54 @@
       }
       return allProps;
     }
-      
+    
+    function next() {
+
+
+    }
+
+    function before() {
+
+    }
+
+    
+    function handle(pass){
+            url = '/list/episodes/'+ pathProps[2]; 
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                          //get indexPosition equals string in array
+
+
+                           var indexPosition = response.findIndex(function (element) {
+                            return element == pathProps[3];
+                        });
+
+                        
+                          console.log(indexPosition);
+                          if(pass==-1 && indexPosition != 0){
+                            window.location.href = "/"+pathProps[2]+"/"+response[indexPosition-1]+"/assistir";
+                          }
+
+                          if(pass==1 && indexPosition < (response.length-1)){
+                            window.location.href = "/"+pathProps[2]+"/"+response[indexPosition+1]+"/assistir";
+                          }
+                        return response;        
+                    }
+                }
+            };
+            xhr.send();
+
+    }
+
+    
+
+  </script>
+</html>
+```
 
 
   </script>
