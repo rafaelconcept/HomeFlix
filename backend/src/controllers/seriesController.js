@@ -54,10 +54,33 @@ module.exports = {
 
     },
 
-    async getSeries(req, res) {
+    async listSeries(req, res) {
+        let series = listFoldersInFolder((path.resolve('../frontend/src/series')));
 
+        let listSeries = [];
 
+        series.forEach(x =>{
+            let cover = getNameFileInFolderLikeName(path.resolve('../frontend/src/series/'+x),`cover`)[0];
+            listSeries.push({
+                serie:x,
+                cover:cover
+            })
+        })
+        
+        res.send(listSeries)
+
+        function listFoldersInFolder(folder) {
+            return fs.readdirSync(folder).filter(file => fs.statSync(path.join(folder, file)).isDirectory());
+        }
+
+        function getNameFileInFolderLikeName(folder, name) {
+            return fs.readdirSync(folder).filter(file => file.includes(name));
+        }
+            
+    
     }
+
+
 
 
 
