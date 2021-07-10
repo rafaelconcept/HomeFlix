@@ -3,7 +3,10 @@ const router = express.Router();
 const seriesController = require('./controllers/seriesController');
 const path = require('path');
 
-router.get('/', )
+router.get('/', (req, res) => {
+
+    
+})
 
 //router.get('/:serie/:episode', seriesController.getEpisode);
 

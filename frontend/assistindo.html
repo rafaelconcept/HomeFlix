@@ -9,7 +9,7 @@
        </h1>
       <!-- Mude o src dessa tag para o nome do video que você possuir -->
 
-      <video src="/video/loki/01.mp4" controls audioTracks="1" width="640"></video>
+      <video  id="video"src="/video/loki/01.mp4" controls audioTracks="1" width="640"></video>
        
   </body>
 
@@ -19,8 +19,9 @@
 
     let pathProps = getAllPropsInPath(url)
 
-    document.querySelector(".title").innerHTML = "Assistindo " + pathProps[2] + " - " + pathProps[3];
 
+    document.querySelector(".title").innerHTML = "Assistindo " + pathProps[2] + " - " + pathProps[3];
+    document.querySelector("#video").src= "/video/" + pathProps[2] + "/" + pathProps[3]
     function getAllPropsInPath(url) {
       let allProps = [];
       let urlParts = url.split('/');

@@ -3,6 +3,8 @@
 
 <head>
     <style>
+       
+
         .serieElement {
             display: flex;
             flex-direction: column;
@@ -30,7 +32,14 @@
             flex-direction: row;
             justify-content: center;
         }
-
+        @media screen and (max-width: 409px) {
+            .boardSeries {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
        
     </style>
     <link rel="stylesheet" href="../frontend/series.css">
