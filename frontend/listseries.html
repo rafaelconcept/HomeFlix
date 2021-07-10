@@ -75,7 +75,7 @@
                         var html = '';
                         for (var i = 0; i < response.length; i++) {
                             html += `<div class="serieElement" onClick="clicou('${response[i].serie}')">`;
-                            html += `<img class="coverList" src="getcover/${response[i].serie}" alt="">`;
+                            html += `<img class="coverList" src="/getcover/${response[i].serie}" alt="">`;
                             html += '<p>' + response[i].serie + '</p>';
                             html += '</div>';
                         }
