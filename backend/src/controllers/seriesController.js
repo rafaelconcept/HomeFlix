@@ -6,9 +6,9 @@ module.exports = {
     async getEpisode(req, res) {
         let name = req.params.serie;
         let epi = req.params.episode;
-        
 
-        const path = `../frontend/src/series/${name}/${epi}.mp4`;
+
+        const path = `../frontend/src/series/${name}/${epi}`;
 
         fs.stat(path, (err, stat) => {
 
@@ -59,14 +59,14 @@ module.exports = {
 
         let listSeries = [];
 
-        series.forEach(x =>{
-            let cover = getNameFileInFolderLikeName(path.resolve('../frontend/src/series/'+x),`cover`)[0];
+        series.forEach(x => {
+            let cover = getNameFileInFolderLikeName(path.resolve('../frontend/src/series/' + x), `cover`)[0];
             listSeries.push({
-                serie:x,
-                cover:cover
+                serie: x,
+                cover: cover
             })
         })
-        
+
         res.send(listSeries)
 
         function listFoldersInFolder(folder) {
@@ -76,10 +76,28 @@ module.exports = {
         function getNameFileInFolderLikeName(folder, name) {
             return fs.readdirSync(folder).filter(file => file.includes(name));
         }
-            
-    
-    }
 
+
+    },
+
+    async listEpisode(req, res) {
+
+
+        function listFilesInFolderExeption(folder, fileException) {
+            return fs.readdirSync(folder).filter(file => !file.includes(fileException));
+        }
+        res.send(listFilesInFolderExeption(path.resolve('../frontend/src/series/' + req.params.serie), `cover`))
+    },
+    
+    async getCover(req, res) {
+
+        let cover = getNameFileInFolderLikeName(path.resolve('../frontend/src/series/' + req.params.serie), `cover`)[0];
+        res.sendFile(path.resolve('../frontend/src/series/' + req.params.serie + '/'+cover))
+
+        function getNameFileInFolderLikeName(folder, name) {
+            return fs.readdirSync(folder).filter(file => file.includes(name));
+        }
+    }
 
 
 
