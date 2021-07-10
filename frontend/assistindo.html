@@ -6,6 +6,12 @@
       width: 300px;
       text-align: center;
     }
+    .button2 {
+      margin-top: 50px;
+      height: 30px;
+      width: 300px;
+      text-align: center;
+    }
   </style>
   <body style="text-align:center">
 
@@ -17,9 +23,11 @@
 
       <video  id="video"src="/video/loki/01.mp4" controls audioTracks="1" width="640"></video>
        <div class="buttons_handle">
-         <button class="button" onclick="handle(-1)">Anterior</button>
-         <button class="button" onclick="handle(1)">Proximo</button>
-
+         <button class="button" id="before" onclick="handle(-1)">Anterior</button>
+         <button class="button" id="next" onclick="handle(1)">Proximo</button>
+       </div>
+       <div>
+        <button class="button2" onclick="returnSeries()">Voltar para Series</button>
        </div>
   </body>
 
@@ -42,16 +50,15 @@
       return allProps;
     }
     
-    function next() {
-
-
+    function returnSeries() {
+      window.location.href = "/series"
     }
-
-    function before() {
-
-    }
-
     
+  //function runnin even when the page is ready
+    document.addEventListener("DOMContentLoaded", function() {
+      handle(0)
+    });
+
     function handle(pass){
             url = '/list/episodes/'+ pathProps[2]; 
             var xhr = new XMLHttpRequest();
@@ -69,6 +76,19 @@
 
                         
                           console.log(indexPosition);
+
+
+                          if(pass==0){
+                            
+                            if(indexPosition==response.length-1){
+                              document.querySelector("#next").setAttribute("disabled", "");
+                            }
+                            if(indexPosition==0){
+                              document.querySelector("#before").setAttribute("disabled", "");
+                            }
+
+                        }
+
                           if(pass==-1 && indexPosition != 0){
                             window.location.href = "/"+pathProps[2]+"/"+response[indexPosition-1]+"/assistir";
                           }
@@ -87,13 +107,4 @@
     
 
   </script>
-</html>
-```
-
-
-  </script>
-</html>
-  </script>
-
-
 </html>
